@@ -4,9 +4,10 @@ import {
   Card,
   IconButton,
   RadioButton,
+  Checkbox,
 } from "@contentful/forma-36-react-components";
 
-import { Choice } from "../App";
+import { Choice, QuestionType } from "../App";
 import { DraggableProvided } from "react-beautiful-dnd";
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
   removeChoice: (choiceId: string) => void;
   makeValid: (choiceId: string) => void;
   dndProvided: DraggableProvided;
+  questionType: QuestionType;
 };
 
 export function QuestionChoice({
@@ -21,6 +23,7 @@ export function QuestionChoice({
   removeChoice,
   makeValid,
   dndProvided,
+  questionType,
 }: Props) {
   return (
     <div
@@ -32,14 +35,31 @@ export function QuestionChoice({
         <div style={{ margin: "-0.875rem 1rem -0.875rem -0.875rem" }}>
           <CardDragHandle>move</CardDragHandle>
         </div>
-        <RadioButton
-          checked={choice.isValid}
-          labelText="valid answer"
-          type="radio"
-          onChange={() => {
-            makeValid(choice.id);
-          }}
-        />
+        {
+          {
+            "single-choice": (
+              <RadioButton
+                checked={choice.isValid}
+                labelText="valid answer"
+                type="radio"
+                onChange={() => {
+                  makeValid(choice.id);
+                }}
+              />
+            ),
+            "multiple-choice": (
+              <Checkbox
+                checked={choice.isValid}
+                labelText="valid answer"
+                type="checkbox"
+                onChange={() => {
+                  makeValid(choice.id);
+                }}
+              />
+            ),
+            dropdwon: null,
+          }[questionType]
+        }
         <div>{choice.text}</div>
         <IconButton
           onClick={() => removeChoice(choice.id)}
