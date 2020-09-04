@@ -10,7 +10,7 @@ import { QuestionType } from "../App";
 const questionTypes: QuestionType[] = [
   "single-choice",
   "multiple-choice",
-  "dropdwon",
+  "dropdown",
 ];
 
 type Props = {

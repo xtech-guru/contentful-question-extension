@@ -14,7 +14,7 @@ export type Choice = {
   isValid: boolean;
 };
 
-export type QuestionType = "single-choice" | "multiple-choice" | "dropdwon";
+export type QuestionType = "single-choice" | "multiple-choice" | "dropdown";
 
 export type Question = {
   type: QuestionType;
@@ -51,7 +51,14 @@ function App() {
         isOpen={isOpen}
         setOpen={setOpen}
         setQuestionType={(questionType) => {
-          setQuestion({ ...question, type: questionType });
+          setQuestion({
+            ...question,
+            type: questionType,
+            choices: question.choices.map((choice) => ({
+              ...choice,
+              isValid: false,
+            })),
+          });
         }}
       />
       <DragDropContext
@@ -110,6 +117,7 @@ function App() {
                 >
                   {(provided, snapshot) => (
                     <QuestionChoice
+                      questionType={question.type}
                       dndProvided={provided}
                       choice={choice}
                       removeChoice={(choiceId) => {
@@ -124,9 +132,15 @@ function App() {
                         setQuestion({
                           ...question,
                           choices: question.choices.map((choice) => {
-                            if (choice.id === choiceId)
-                              return { ...choice, isValid: true };
-                            return { ...choice, isValid: false };
+                            if (choice.id === choiceId) {
+                              return { ...choice, isValid: !choice.isValid };
+                            }
+                            if (
+                              question.type === "single-choice" ||
+                              question.type === "dropdown"
+                            )
+                              return { ...choice, isValid: false };
+                            return choice;
                           }),
                         });
                       }}

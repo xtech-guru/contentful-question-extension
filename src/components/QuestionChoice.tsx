@@ -35,31 +35,25 @@ export function QuestionChoice({
         <div style={{ margin: "-0.875rem 1rem -0.875rem -0.875rem" }}>
           <CardDragHandle>move</CardDragHandle>
         </div>
-        {
-          {
-            "single-choice": (
-              <RadioButton
-                checked={choice.isValid}
-                labelText="valid answer"
-                type="radio"
-                onChange={() => {
-                  makeValid(choice.id);
-                }}
-              />
-            ),
-            "multiple-choice": (
-              <Checkbox
-                checked={choice.isValid}
-                labelText="valid answer"
-                type="checkbox"
-                onChange={() => {
-                  makeValid(choice.id);
-                }}
-              />
-            ),
-            dropdwon: null,
-          }[questionType]
-        }
+        {questionType === "multiple-choice" ? (
+          <Checkbox
+            checked={choice.isValid}
+            labelText="valid answer"
+            type="checkbox"
+            onChange={() => {
+              makeValid(choice.id);
+            }}
+          />
+        ) : (
+          <RadioButton
+            checked={choice.isValid}
+            labelText="valid answer"
+            type="radio"
+            onChange={() => {
+              makeValid(choice.id);
+            }}
+          />
+        )}
         <div>{choice.text}</div>
         <IconButton
           onClick={() => removeChoice(choice.id)}
