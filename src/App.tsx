@@ -1,13 +1,13 @@
 import React from "react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import "./App.css";
 import "@contentful/forma-36-react-components/dist/styles.css";
 
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { QuestionTypeSwitcher } from "./components/QuestionTypeSwitcher";
 import { AddChoice } from "./components/AddChoice";
-
-import "./App.css";
 import SingleMultipleChoice from "./components/SingleMultipleChoice";
 import CustomDropDown from "./components/CustomDropDown";
+import { FieldExtensionSDK } from "contentful-ui-extensions-sdk";
 
 export type Choice = {
   text: string;
@@ -22,28 +22,26 @@ export type Question = {
   choices: Choice[];
 };
 
-function fetchQuestion(): Question {
-  const jsonQuestion = localStorage.getItem("question");
-  const question = jsonQuestion ? JSON.parse(jsonQuestion) : null;
-  return (
-    question || {
-      type: "single-choice",
-      choices: [],
-    }
-  );
+interface Props {
+  sdk: FieldExtensionSDK;
 }
 
-function saveQuestion(question: Question) {
-  localStorage.setItem("question", JSON.stringify(question));
-}
-
-function App() {
+function App({ sdk }: Props) {
   const [isOpen, setOpen] = React.useState(false);
-  const [question, setQuestion] = React.useState<Question>(fetchQuestion());
+  const [question, setQuestion] = React.useState<Question>({
+    type: "multiple-choice",
+    choices: [],
+  });
 
   React.useEffect(() => {
-    saveQuestion(question);
-  }, [question]);
+    sdk.window.updateHeight(550);
+    const questionContentful = sdk.field.getValue();
+    setQuestion(questionContentful);
+  }, [sdk]);
+
+  React.useEffect(() => {
+    sdk.field.setValue(question);
+  }, [sdk, question]);
 
   const makeValid = (choiceId: string) => {
     setQuestion({
@@ -163,7 +161,6 @@ function App() {
           });
         }}
       />
-      <pre>{JSON.stringify(question, null, 2)}</pre>
     </div>
   );
 }
