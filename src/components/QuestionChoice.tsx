@@ -9,6 +9,7 @@ import {
 
 import { Choice, QuestionType } from "../App";
 import { DraggableProvided } from "react-beautiful-dnd";
+import CustomDropDown from "./CustomDropDown";
 
 type Props = {
   choice: Choice;
@@ -35,25 +36,31 @@ export function QuestionChoice({
         <div style={{ margin: "-0.875rem 1rem -0.875rem -0.875rem" }}>
           <CardDragHandle>move</CardDragHandle>
         </div>
-        {questionType === "multiple-choice" ? (
-          <Checkbox
-            checked={choice.isValid}
-            labelText="valid answer"
-            type="checkbox"
-            onChange={() => {
-              makeValid(choice.id);
-            }}
-          />
-        ) : (
-          <RadioButton
-            checked={choice.isValid}
-            labelText="valid answer"
-            type="radio"
-            onChange={() => {
-              makeValid(choice.id);
-            }}
-          />
-        )}
+        {
+          {
+            "single-choice": (
+              <RadioButton
+                checked={choice.isValid}
+                labelText="valid answer"
+                type="radio"
+                onChange={() => {
+                  makeValid(choice.id);
+                }}
+              />
+            ),
+            "multiple-choice": (
+              <Checkbox
+                checked={choice.isValid}
+                labelText="valid answer"
+                type="checkbox"
+                onChange={() => {
+                  makeValid(choice.id);
+                }}
+              />
+            ),
+            dropdown: null,
+          }[questionType]
+        }
         <div>{choice.text}</div>
         <IconButton
           onClick={() => removeChoice(choice.id)}
