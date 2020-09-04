@@ -12,7 +12,8 @@
     "@types/react": "^16.9.0",
     "@types/react-beautiful-dnd": "^13.0.0",
     "@types/react-dom": "^16.9.0",
-    "contentful-ui-extensions-sdk": "^3.17.0",
+    "contentful-ui-extensions-sdk": "^3.20.0",
+    "cross-env": "^7.0.2",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
@@ -20,7 +21,7 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env BROWSER=NONE PORT=1234 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
