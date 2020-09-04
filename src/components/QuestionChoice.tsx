@@ -9,7 +9,6 @@ import {
 
 import { Choice, QuestionType } from "../App";
 import { DraggableProvided } from "react-beautiful-dnd";
-import CustomDropDown from "./CustomDropDown";
 
 type Props = {
   choice: Choice;

@@ -5,17 +5,19 @@ import {
   DropdownListItem,
   DropdownList,
   RadioButton,
+  IconButton,
 } from "@contentful/forma-36-react-components";
 import { Choice } from "../App";
 
 interface Props {
   choices: Choice[];
   makeValid: (choiceId: string) => void;
+  removeChoice: (choiceId: string) => void;
 }
 
 export default function CustomDropDown(props: Props) {
-  const { choices, makeValid } = props;
-  const [isOpen, setOpen] = React.useState(false);
+  const { choices, makeValid, removeChoice } = props;
+  const [isOpen, setOpen] = React.useState(true);
   return (
     <Dropdown
       isOpen={isOpen}
@@ -35,7 +37,7 @@ export default function CustomDropDown(props: Props) {
       <DropdownList>
         {choices &&
           choices.map(({ id, text, isValid }) => (
-            <DropdownListItem onClick={() => undefined}>
+            <DropdownListItem key={id}>
               <RadioButton
                 checked={isValid}
                 labelText="valid answer"
@@ -45,6 +47,14 @@ export default function CustomDropDown(props: Props) {
                 }}
               />
               {text}
+              <IconButton
+                onClick={() => removeChoice(id)}
+                buttonType="negative"
+                iconProps={{
+                  icon: "Close",
+                }}
+                label="remove"
+              />
             </DropdownListItem>
           ))}
       </DropdownList>

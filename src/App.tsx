@@ -1,12 +1,13 @@
 import React from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import "@contentful/forma-36-react-components/dist/styles.css";
 
-import { QuestionChoice } from "./components/QuestionChoice";
 import { QuestionTypeSwitcher } from "./components/QuestionTypeSwitcher";
 import { AddChoice } from "./components/AddChoice";
 
 import "./App.css";
+import SingleMultipleChoice from "./components/SingleMultipleChoice";
+import CustomDropDown from "./components/CustomDropDown";
 
 export type Choice = {
   text: string;
@@ -43,6 +44,27 @@ function App() {
   React.useEffect(() => {
     saveQuestion(question);
   }, [question]);
+
+  const makeValid = (choiceId: string) => {
+    setQuestion({
+      ...question,
+      choices: question.choices.map((choice) => {
+        if (choice.id === choiceId) {
+          return { ...choice, isValid: !choice.isValid };
+        }
+        if (question.type === "single-choice" || question.type === "dropdown")
+          return { ...choice, isValid: false };
+        return choice;
+      }),
+    });
+  };
+
+  const removeChoice = (choiceId: string) => {
+    setQuestion({
+      ...question,
+      choices: question.choices.filter((choice) => choice.id !== choiceId),
+    });
+  };
 
   return (
     <div className="question-container">
@@ -109,45 +131,19 @@ function App() {
               ref={provided.innerRef}
               className="question-choices"
             >
-              {question.choices.map((choice, index) => (
-                <Draggable
-                  key={choice.id}
-                  draggableId={choice.id}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <QuestionChoice
-                      questionType={question.type}
-                      dndProvided={provided}
-                      choice={choice}
-                      removeChoice={(choiceId) => {
-                        setQuestion({
-                          ...question,
-                          choices: question.choices.filter(
-                            (choice) => choice.id !== choiceId
-                          ),
-                        });
-                      }}
-                      makeValid={(choiceId) => {
-                        setQuestion({
-                          ...question,
-                          choices: question.choices.map((choice) => {
-                            if (choice.id === choiceId) {
-                              return { ...choice, isValid: !choice.isValid };
-                            }
-                            if (
-                              question.type === "single-choice" ||
-                              question.type === "dropdown"
-                            )
-                              return { ...choice, isValid: false };
-                            return choice;
-                          }),
-                        });
-                      }}
-                    />
-                  )}
-                </Draggable>
-              ))}
+              {question.type === "dropdown" ? (
+                <CustomDropDown
+                  choices={question.choices}
+                  makeValid={makeValid}
+                  removeChoice={removeChoice}
+                />
+              ) : (
+                <SingleMultipleChoice
+                  question={question}
+                  removeChoice={removeChoice}
+                  makeValid={makeValid}
+                />
+              )}
             </div>
           )}
         </Droppable>
@@ -167,6 +163,7 @@ function App() {
           });
         }}
       />
+      <pre>{JSON.stringify(question, null, 2)}</pre>
     </div>
   );
 }
