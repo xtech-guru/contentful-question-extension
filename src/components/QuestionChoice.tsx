@@ -3,8 +3,8 @@ import {
   CardDragHandle,
   Card,
   IconButton,
-  RadioButton,
-  Checkbox,
+  RadioButtonField,
+  CheckboxField,
 } from "@contentful/forma-36-react-components";
 
 import { Choice, QuestionType } from "../App";
@@ -38,20 +38,20 @@ export function QuestionChoice({
         {
           {
             "single-choice": (
-              <RadioButton
+              <RadioButtonField
+                labelText={choice.text}
                 checked={choice.isValid}
-                labelText="valid answer"
-                type="radio"
                 onChange={() => {
                   makeValid(choice.id);
                 }}
+                id="choice-id"
               />
             ),
             "multiple-choice": (
-              <Checkbox
+              <CheckboxField
+                labelText={choice.text}
                 checked={choice.isValid}
-                labelText="valid answer"
-                type="checkbox"
+                id="choice-id"
                 onChange={() => {
                   makeValid(choice.id);
                 }}
@@ -60,7 +60,6 @@ export function QuestionChoice({
             dropdown: null,
           }[questionType]
         }
-        <div>{choice.text}</div>
         <IconButton
           onClick={() => removeChoice(choice.id)}
           buttonType="negative"

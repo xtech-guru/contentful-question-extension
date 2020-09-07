@@ -81,6 +81,21 @@ function App({ sdk }: Props) {
           });
         }}
       />
+      <AddChoice
+        onSubmit={(text) => {
+          setQuestion({
+            ...question,
+            choices: [
+              ...question.choices,
+              {
+                isValid: false,
+                id: `${Math.random().toString().slice(2)}`,
+                text,
+              },
+            ],
+          });
+        }}
+      />
       <DragDropContext
         onDragEnd={(result) => {
           if (result.destination) {
@@ -146,21 +161,6 @@ function App({ sdk }: Props) {
           )}
         </Droppable>
       </DragDropContext>
-      <AddChoice
-        onSubmit={(text) => {
-          setQuestion({
-            ...question,
-            choices: [
-              ...question.choices,
-              {
-                isValid: false,
-                id: `${Math.random().toString().slice(2)}`,
-                text,
-              },
-            ],
-          });
-        }}
-      />
     </div>
   );
 }

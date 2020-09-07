@@ -28,7 +28,7 @@ export function QuestionTypeSwitcher({
 }: Props) {
   return (
     <div className="question-type">
-      choose question type
+      <span>Choose question type:</span>
       <Dropdown
         isOpen={isOpen}
         onClose={() => {

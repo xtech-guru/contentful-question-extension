@@ -4,8 +4,8 @@ import {
   Button,
   DropdownListItem,
   DropdownList,
-  RadioButton,
   IconButton,
+  RadioButtonField,
 } from "@contentful/forma-36-react-components";
 import { Choice } from "../App";
 
@@ -38,13 +38,13 @@ export default function CustomDropDown(props: Props) {
         {choices &&
           choices.map(({ id, text, isValid }) => (
             <DropdownListItem key={id}>
-              <RadioButton
+              <RadioButtonField
+                labelText={text}
                 checked={isValid}
-                labelText="valid answer"
-                type="radio"
                 onChange={() => {
                   makeValid(id);
                 }}
+                id="choice-id"
               />
               {text}
               <IconButton

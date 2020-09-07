@@ -28,6 +28,21 @@
   color: #61dafb;
 }
 
+.question-type {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: bold;
+  color: #283848;
+}
+
+.question-container {
+  padding: 20px;
+}
+.add-choice-container {
+  margin: 20px 0;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
