@@ -38,6 +38,7 @@
 
 .question-container {
   padding: 20px;
+  background-color: red;
 }
 .add-choice-container {
   margin: 20px 0;
