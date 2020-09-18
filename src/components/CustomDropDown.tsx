@@ -17,19 +17,12 @@ interface Props {
 
 export default function CustomDropDown(props: Props) {
   const { choices, makeValid, removeChoice } = props;
-  const [isOpen, setOpen] = React.useState(true);
   return (
     <Dropdown
-      isOpen={isOpen}
-      onClose={() => setOpen(false)}
+      isOpen={true}
       key={Date.now()} // Force Reinit
       toggleElement={
-        <Button
-          size="small"
-          buttonType="muted"
-          indicateDropdown
-          onClick={() => setOpen(!isOpen)}
-        >
+        <Button size="small" buttonType="muted" indicateDropdown>
           Trigger Dropdown
         </Button>
       }
