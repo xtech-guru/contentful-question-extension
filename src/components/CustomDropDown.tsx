@@ -46,7 +46,6 @@ export default function CustomDropDown(props: Props) {
                 }}
                 id="choice-id"
               />
-              {text}
               <IconButton
                 onClick={() => removeChoice(id)}
                 buttonType="negative"
