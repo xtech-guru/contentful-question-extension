@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/contentful-question-extension/static/css/main.4166aee4.chunk.css",
-    "main.js": "/contentful-question-extension/static/js/main.adb4daba.chunk.js",
-    "main.js.map": "/contentful-question-extension/static/js/main.adb4daba.chunk.js.map",
+    "main.js": "/contentful-question-extension/static/js/main.c721c581.chunk.js",
+    "main.js.map": "/contentful-question-extension/static/js/main.c721c581.chunk.js.map",
     "runtime-main.js": "/contentful-question-extension/static/js/runtime-main.26d09161.js",
     "runtime-main.js.map": "/contentful-question-extension/static/js/runtime-main.26d09161.js.map",
     "static/css/2.a1a9edf9.chunk.css": "/contentful-question-extension/static/css/2.a1a9edf9.chunk.css",
-    "static/js/2.e8f4c25d.chunk.js": "/contentful-question-extension/static/js/2.e8f4c25d.chunk.js",
-    "static/js/2.e8f4c25d.chunk.js.map": "/contentful-question-extension/static/js/2.e8f4c25d.chunk.js.map",
+    "static/js/2.c68fbc06.chunk.js": "/contentful-question-extension/static/js/2.c68fbc06.chunk.js",
+    "static/js/2.c68fbc06.chunk.js.map": "/contentful-question-extension/static/js/2.c68fbc06.chunk.js.map",
     "index.html": "/contentful-question-extension/index.html",
-    "precache-manifest.ed1bf795e8092e96219e747f908a6254.js": "/contentful-question-extension/precache-manifest.ed1bf795e8092e96219e747f908a6254.js",
+    "precache-manifest.a393a9eb7578b06c7f0284dedd933f0b.js": "/contentful-question-extension/precache-manifest.a393a9eb7578b06c7f0284dedd933f0b.js",
     "service-worker.js": "/contentful-question-extension/service-worker.js",
     "static/css/2.a1a9edf9.chunk.css.map": "/contentful-question-extension/static/css/2.a1a9edf9.chunk.css.map",
     "static/css/main.4166aee4.chunk.css.map": "/contentful-question-extension/static/css/main.4166aee4.chunk.css.map",
-    "static/js/2.e8f4c25d.chunk.js.LICENSE.txt": "/contentful-question-extension/static/js/2.e8f4c25d.chunk.js.LICENSE.txt"
+    "static/js/2.c68fbc06.chunk.js.LICENSE.txt": "/contentful-question-extension/static/js/2.c68fbc06.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.26d09161.js",
     "static/css/2.a1a9edf9.chunk.css",
-    "static/js/2.e8f4c25d.chunk.js",
+    "static/js/2.c68fbc06.chunk.js",
     "static/css/main.4166aee4.chunk.css",
-    "static/js/main.adb4daba.chunk.js"
+    "static/js/main.c721c581.chunk.js"
   ]
 }
