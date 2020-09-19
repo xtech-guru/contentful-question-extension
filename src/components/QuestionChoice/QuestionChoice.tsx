@@ -7,7 +7,7 @@ import {
   CheckboxField,
 } from "@contentful/forma-36-react-components";
 
-import { Choice, QuestionType } from "../App";
+import { Choice, QuestionType } from "../../App";
 import { DraggableProvided } from "react-beautiful-dnd";
 
 type Props = {

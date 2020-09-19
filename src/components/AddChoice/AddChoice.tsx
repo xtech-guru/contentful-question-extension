@@ -13,6 +13,7 @@ export function AddChoice(props: Props) {
       <TextInput
         value={text}
         placeholder="add the choice's text and press return"
+        role="add-choice-input"
         onChange={(event) => {
           setText(event.currentTarget.value);
         }}

@@ -5,7 +5,7 @@ import {
   DropdownListItem,
   DropdownList,
 } from "@contentful/forma-36-react-components";
-import { QuestionType } from "../App";
+import { QuestionType } from "../../App";
 
 const questionTypes: QuestionType[] = [
   "single-choice",

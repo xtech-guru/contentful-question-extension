@@ -5,8 +5,8 @@ import "@contentful/forma-36-react-components/dist/styles.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { QuestionTypeSwitcher } from "./components/QuestionTypeSwitcher";
 import { AddChoice } from "./components/AddChoice";
-import SingleMultipleChoice from "./components/SingleMultipleChoice";
-import CustomDropDown from "./components/CustomDropDown";
+import { SingleMultipleChoice } from "./components/SingleMultipleChoice";
+import { CustomDropDown } from "./components/CustomDropDown";
 import { FieldExtensionSDK } from "contentful-ui-extensions-sdk";
 
 export type Choice = {

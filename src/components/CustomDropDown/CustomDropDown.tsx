@@ -7,7 +7,7 @@ import {
   IconButton,
   RadioButtonField,
 } from "@contentful/forma-36-react-components";
-import { Choice } from "../App";
+import { Choice } from "../../App";
 
 interface Props {
   choices: Choice[];
@@ -15,7 +15,7 @@ interface Props {
   removeChoice: (choiceId: string) => void;
 }
 
-export default function CustomDropDown(props: Props) {
+export function CustomDropDown(props: Props) {
   const { choices, makeValid, removeChoice } = props;
   return (
     <Dropdown
@@ -34,6 +34,9 @@ export default function CustomDropDown(props: Props) {
               <RadioButtonField
                 labelText={text}
                 checked={isValid}
+                inputProps={{
+                  "data-testid": `make-choice-${id}-valid`,
+                }}
                 onChange={() => {
                   makeValid(id);
                 }}
@@ -42,6 +45,7 @@ export default function CustomDropDown(props: Props) {
               <IconButton
                 onClick={() => removeChoice(id)}
                 buttonType="negative"
+                data-testid={`remove-choice-${id}`}
                 iconProps={{
                   icon: "Close",
                 }}

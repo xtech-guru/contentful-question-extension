@@ -1,7 +1,7 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import { QuestionChoice } from "./QuestionChoice";
-import { Question } from "../App";
+import { QuestionChoice } from "../QuestionChoice";
+import { Question } from "../../App";
 
 interface Props {
   question: Question;
@@ -9,7 +9,7 @@ interface Props {
   makeValid: (choiceId: string) => void;
 }
 
-export default function SingleMultipleChoice(props: Props) {
+export function SingleMultipleChoice(props: Props) {
   const { question, removeChoice, makeValid } = props;
   return (
     <>
