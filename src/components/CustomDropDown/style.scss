@@ -1,0 +1,6 @@
+.dropdown-list-item-overrides {
+  & > span {
+    display: flex;
+    align-items: center;
+  }
+}

@@ -64,6 +64,24 @@ function App({ sdk }: Props) {
     });
   };
 
+  const editChoice = (choiceId: string, newText: string) => {
+    const choiceToEditIndex = question.choices.findIndex(
+      (choice) => choice.id === choiceId
+    );
+    if (choiceToEditIndex === -1) return;
+    setQuestion({
+      ...question,
+      choices: [
+        ...question.choices.slice(0, choiceToEditIndex),
+        {
+          ...question.choices[choiceToEditIndex],
+          text: newText,
+        },
+        ...question.choices.slice(choiceToEditIndex + 1),
+      ],
+    });
+  };
+
   return (
     <div className="question-container">
       <QuestionTypeSwitcher
@@ -149,12 +167,14 @@ function App({ sdk }: Props) {
                   choices={question.choices}
                   makeValid={makeValid}
                   removeChoice={removeChoice}
+                  editChoice={editChoice}
                 />
               ) : (
                 <SingleMultipleChoice
                   question={question}
                   removeChoice={removeChoice}
                   makeValid={makeValid}
+                  editChoice={editChoice}
                 />
               )}
             </div>

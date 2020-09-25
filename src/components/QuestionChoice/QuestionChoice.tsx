@@ -3,18 +3,21 @@ import {
   CardDragHandle,
   Card,
   IconButton,
-  RadioButtonField,
-  CheckboxField,
+  RadioButton,
+  Checkbox,
 } from "@contentful/forma-36-react-components";
 
 import { Choice, QuestionType } from "../../App";
 import { DraggableProvided } from "react-beautiful-dnd";
+import { InputEdit } from "../InputEdit";
+import { Spacer } from "../utils";
 
 type ContentProps = {
   choice: Choice;
   removeChoice: (choiceId: string) => void;
   makeValid: (choiceId: string) => void;
   questionType: QuestionType;
+  editChoice: (newText: string) => void;
 };
 
 type Props = ContentProps & {
@@ -27,6 +30,7 @@ export function QuestionChoice({
   makeValid,
   dndProvided,
   questionType,
+  editChoice,
 }: Props) {
   return (
     <div
@@ -39,6 +43,7 @@ export function QuestionChoice({
         removeChoice={removeChoice}
         makeValid={makeValid}
         questionType={questionType}
+        editChoice={editChoice}
       />
     </div>
   );
@@ -49,6 +54,7 @@ export function QuestionChoiceContent({
   removeChoice,
   makeValid,
   questionType,
+  editChoice,
 }: ContentProps) {
   return (
     <Card style={{ display: "flex" }}>
@@ -58,24 +64,20 @@ export function QuestionChoiceContent({
       {
         {
           "single-choice": (
-            <RadioButtonField
-              labelText={choice.text}
-              inputProps={{
-                "data-testid": `make-choice-valid-${choice.id}`,
-              }}
+            <RadioButton
+              data-testid={`make-choice-valid-${choice.id}`}
               checked={choice.isValid}
               onChange={() => {
                 makeValid(choice.id);
               }}
               id="choice-id"
+              labelText={choice.text}
             />
           ),
           "multiple-choice": (
-            <CheckboxField
+            <Checkbox
               labelText={choice.text}
-              inputProps={{
-                "data-testid": `make-choice-valid-${choice.id}`,
-              }}
+              data-testid={`make-choice-valid-${choice.id}`}
               checked={choice.isValid}
               id="choice-id"
               onChange={() => {
@@ -86,6 +88,14 @@ export function QuestionChoiceContent({
           dropdown: null,
         }[questionType]
       }
+      <Spacer />
+      <InputEdit
+        text={choice.text}
+        editText={(newText) => {
+          editChoice(newText);
+        }}
+      />
+      <Spacer />
       <IconButton
         onClick={() => removeChoice(choice.id)}
         buttonType="negative"

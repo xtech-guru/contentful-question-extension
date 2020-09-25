@@ -5,18 +5,23 @@ import {
   DropdownListItem,
   DropdownList,
   IconButton,
-  RadioButtonField,
+  RadioButton,
 } from "@contentful/forma-36-react-components";
 import { Choice } from "../../App";
+import { InputEdit } from "../InputEdit";
+import { Spacer } from "../utils";
+
+import "./style.scss";
 
 interface Props {
   choices: Choice[];
   makeValid: (choiceId: string) => void;
   removeChoice: (choiceId: string) => void;
+  editChoice: (choiceId: string, newText: string) => void;
 }
 
 export function CustomDropDown(props: Props) {
-  const { choices, makeValid, removeChoice } = props;
+  const { choices, makeValid, removeChoice, editChoice } = props;
   return (
     <Dropdown
       isOpen={true}
@@ -31,18 +36,24 @@ export function CustomDropDown(props: Props) {
       <DropdownList>
         {choices &&
           choices.map(({ id, text, isValid }) => (
-            <DropdownListItem key={id}>
-              <RadioButtonField
+            <DropdownListItem key={id} className="dropdown-list-item-overrides">
+              <RadioButton
                 labelText={text}
                 checked={isValid}
-                inputProps={{
-                  "data-testid": `make-choice-${id}-valid`,
-                }}
+                data-testid={`make-choice-${id}-valid`}
                 onChange={() => {
                   makeValid(id);
                 }}
                 id="choice-id"
               />
+              <Spacer />
+              <InputEdit
+                text={text}
+                editText={(newText: string) => {
+                  editChoice(id, newText);
+                }}
+              />
+              <Spacer />
               <IconButton
                 onClick={() => removeChoice(id)}
                 buttonType="negative"

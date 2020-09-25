@@ -7,6 +7,7 @@ interface Props {
   question: Question;
   removeChoice: (choiceId: string) => void;
   makeValid: (choiceId: string) => void;
+  editChoice: (choiceId: string, newText: string) => void;
 }
 
 export function SingleMultipleChoice(props: Props) {
@@ -22,6 +23,9 @@ export function SingleMultipleChoice(props: Props) {
               choice={choice}
               removeChoice={removeChoice}
               makeValid={makeValid}
+              editChoice={(newText: string) => {
+                props.editChoice(choice.id, newText);
+              }}
             />
           )}
         </Draggable>
