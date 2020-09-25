@@ -35,7 +35,7 @@ function Input({
   editText,
   setEditMode,
 }: Props & { setEditMode: (v: boolean) => void }) {
-  const divEdit = React.useRef<HTMLElement>(null);
+  const divEdit = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     function clickEvent(e: MouseEvent) {
