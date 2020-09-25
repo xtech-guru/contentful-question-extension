@@ -21,6 +21,7 @@ export function CustomDropDown(props: Props) {
     <Dropdown
       isOpen={true}
       key={Date.now()} // Force Reinit
+      position="bottom-left"
       toggleElement={
         <Button size="small" buttonType="muted" indicateDropdown>
           Trigger Dropdown
