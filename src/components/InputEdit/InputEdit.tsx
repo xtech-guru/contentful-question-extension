@@ -10,7 +10,49 @@ export function InputEdit({ text, editText }: Props) {
   const [isEditMode, setEditMode] = React.useState<boolean>(false);
 
   return isEditMode ? (
-    <div style={{ display: "inline-block" }}>
+    <Input
+      text={text}
+      editText={editText}
+      setEditMode={(v: boolean) => {
+        setEditMode(v);
+      }}
+    />
+  ) : (
+    <span
+      onClick={(e) => {
+        e.stopPropagation();
+        setEditMode(true);
+      }}
+      style={{ cursor: "text" }}
+    >
+      {text}
+    </span>
+  );
+}
+
+function Input({
+  text,
+  editText,
+  setEditMode,
+}: Props & { setEditMode: (v: boolean) => void }) {
+  const divEdit = React.useRef<HTMLElement>(null);
+
+  React.useEffect(() => {
+    function clickEvent(e: MouseEvent) {
+      if (!divEdit?.current?.contains(e.target as HTMLElement)) {
+        setEditMode(false);
+      }
+    }
+
+    document.addEventListener("click", clickEvent);
+
+    return function removeEvent() {
+      document.removeEventListener("click", clickEvent);
+    };
+  }, [setEditMode]);
+
+  return (
+    <div style={{ display: "inline-block" }} ref={divEdit}>
       <TextInput
         value={text}
         onChange={(e) => {
@@ -26,14 +68,5 @@ export function InputEdit({ text, editText }: Props) {
         }}
       />
     </div>
-  ) : (
-    <span
-      onClick={() => {
-        setEditMode(true);
-      }}
-      style={{ cursor: "text" }}
-    >
-      {text}
-    </span>
   );
 }
