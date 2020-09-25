@@ -61,50 +61,52 @@ export function QuestionChoiceContent({
       <div style={{ margin: "-0.875rem 1rem -0.875rem -0.875rem" }}>
         <CardDragHandle>move</CardDragHandle>
       </div>
-      {
+      <div style={{ alignItems: "center" }}>
         {
-          "single-choice": (
-            <RadioButton
-              data-testid={`make-choice-valid-${choice.id}`}
-              checked={choice.isValid}
-              onChange={() => {
-                makeValid(choice.id);
-              }}
-              id="choice-id"
-              labelText={choice.text}
-            />
-          ),
-          "multiple-choice": (
-            <Checkbox
-              labelText={choice.text}
-              data-testid={`make-choice-valid-${choice.id}`}
-              checked={choice.isValid}
-              id="choice-id"
-              onChange={() => {
-                makeValid(choice.id);
-              }}
-            />
-          ),
-          dropdown: null,
-        }[questionType]
-      }
-      <Spacer />
-      <InputEdit
-        text={choice.text}
-        editText={(newText) => {
-          editChoice(newText);
-        }}
-      />
-      <Spacer />
-      <IconButton
-        onClick={() => removeChoice(choice.id)}
-        buttonType="negative"
-        data-testid={`remove-choice-${choice.id}`}
-        iconProps={{
-          icon: "Close",
-        }}
-        label="remove"
-      />
+          {
+            "single-choice": (
+              <RadioButton
+                data-testid={`make-choice-valid-${choice.id}`}
+                checked={choice.isValid}
+                onChange={() => {
+                  makeValid(choice.id);
+                }}
+                id="choice-id"
+                labelText={choice.text}
+              />
+            ),
+            "multiple-choice": (
+              <Checkbox
+                labelText={choice.text}
+                data-testid={`make-choice-valid-${choice.id}`}
+                checked={choice.isValid}
+                id="choice-id"
+                onChange={() => {
+                  makeValid(choice.id);
+                }}
+              />
+            ),
+            dropdown: null,
+          }[questionType]
+        }
+        <Spacer />
+        <InputEdit
+          text={choice.text}
+          editText={(newText) => {
+            editChoice(newText);
+          }}
+        />
+        <Spacer />
+        <IconButton
+          onClick={() => removeChoice(choice.id)}
+          buttonType="negative"
+          data-testid={`remove-choice-${choice.id}`}
+          iconProps={{
+            icon: "Close",
+          }}
+          label="remove"
+        />
+      </div>
     </Card>
   );
 }

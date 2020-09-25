@@ -36,7 +36,7 @@ function App({ sdk }: Props) {
   React.useEffect(() => {
     sdk.window.updateHeight(550);
     const questionContentful = sdk.field.getValue();
-    setQuestion(questionContentful);
+    if (questionContentful) setQuestion(questionContentful);
   }, [sdk]);
 
   React.useEffect(() => {
