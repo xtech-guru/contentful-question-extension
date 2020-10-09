@@ -13,11 +13,13 @@ export type Choice = {
   text: string;
   id: string;
   isValid: boolean;
+  checked?: boolean;
 };
 
 export type QuestionType = "single-choice" | "multiple-choice" | "dropdown";
 
 export type Question = {
+  question?: string;
   type: QuestionType;
   choices: Choice[];
 };
@@ -82,38 +84,47 @@ function App({ sdk }: Props) {
     });
   };
 
+  const isEditMode = question.choices[0]?.checked === undefined;
   return (
     <div className="question-container">
-      <QuestionTypeSwitcher
-        selectedQuestionType={question.type}
-        isOpen={isOpen}
-        setOpen={setOpen}
-        setQuestionType={(questionType) => {
-          setQuestion({
-            ...question,
-            type: questionType,
-            choices: question.choices.map((choice) => ({
-              ...choice,
-              isValid: false,
-            })),
-          });
-        }}
-      />
-      <AddChoice
-        onSubmit={(text) => {
-          setQuestion({
-            ...question,
-            choices: [
-              ...question.choices,
-              {
-                isValid: false,
-                id: `${Math.random().toString().slice(2)}`,
-                text,
-              },
-            ],
-          });
-        }}
-      />
+      {isEditMode ? (
+        <>
+          <QuestionTypeSwitcher
+            selectedQuestionType={question.type}
+            isOpen={isOpen}
+            setOpen={setOpen}
+            setQuestionType={(questionType) => {
+              setQuestion({
+                ...question,
+                type: questionType,
+                choices: question.choices.map((choice) => ({
+                  ...choice,
+                  isValid: false,
+                })),
+              });
+            }}
+          />
+
+          <AddChoice
+            onSubmit={(text) => {
+              setQuestion({
+                ...question,
+                choices: [
+                  ...question.choices,
+                  {
+                    isValid: false,
+                    id: `${Math.random().toString().slice(2)}`,
+                    text,
+                  },
+                ],
+              });
+            }}
+          />
+        </>
+      ) : (
+        <h3>{question?.question}</h3>
+      )}
+
       <DragDropContext
         onDragEnd={(result) => {
           if (result.destination) {

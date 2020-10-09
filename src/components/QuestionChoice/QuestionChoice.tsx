@@ -57,10 +57,23 @@ export function QuestionChoiceContent({
   editChoice,
 }: ContentProps) {
   return (
-    <Card style={{ display: "flex" }}>
-      <div style={{ margin: "-0.875rem 1rem -0.875rem -0.875rem" }}>
-        <CardDragHandle>move</CardDragHandle>
-      </div>
+    <Card
+      style={{
+        display: "flex",
+        backgroundColor:
+          choice.isValid && choice.checked
+            ? "green"
+            : !choice.isValid && choice.checked
+            ? "red"
+            : "",
+      }}
+    >
+      {choice.checked === undefined && (
+        <div style={{ margin: "-0.875rem 1rem -0.875rem -0.875rem" }}>
+          <CardDragHandle>move</CardDragHandle>
+        </div>
+      )}
+
       <div style={{ alignItems: "center" }}>
         {
           {
@@ -69,6 +82,7 @@ export function QuestionChoiceContent({
                 data-testid={`make-choice-valid-${choice.id}`}
                 checked={choice.isValid}
                 onChange={() => {
+                  if (choice.checked !== undefined) return;
                   makeValid(choice.id);
                 }}
                 id="choice-id"
@@ -82,6 +96,7 @@ export function QuestionChoiceContent({
                 checked={choice.isValid}
                 id="choice-id"
                 onChange={() => {
+                  if (choice.checked !== undefined) return;
                   makeValid(choice.id);
                 }}
               />
@@ -95,17 +110,20 @@ export function QuestionChoiceContent({
           editText={(newText) => {
             editChoice(newText);
           }}
+          checked={choice.checked}
         />
         <Spacer />
-        <IconButton
-          onClick={() => removeChoice(choice.id)}
-          buttonType="negative"
-          data-testid={`remove-choice-${choice.id}`}
-          iconProps={{
-            icon: "Close",
-          }}
-          label="remove"
-        />
+        {choice.checked === undefined && (
+          <IconButton
+            onClick={() => removeChoice(choice.id)}
+            buttonType="negative"
+            data-testid={`remove-choice-${choice.id}`}
+            iconProps={{
+              icon: "Close",
+            }}
+            label="remove"
+          />
+        )}
       </div>
     </Card>
   );

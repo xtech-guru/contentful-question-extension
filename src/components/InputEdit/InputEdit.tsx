@@ -3,10 +3,11 @@ import * as React from "react";
 
 interface Props {
   text: string;
+  checked?: boolean;
   editText: (newText: string) => void;
 }
 
-export function InputEdit({ text, editText }: Props) {
+export function InputEdit({ text, editText, checked }: Props) {
   const [isEditMode, setEditMode] = React.useState<boolean>(false);
 
   return isEditMode ? (
@@ -21,6 +22,7 @@ export function InputEdit({ text, editText }: Props) {
     <span
       onClick={(e) => {
         e.stopPropagation();
+        if (checked !== undefined) return;
         setEditMode(true);
       }}
       style={{ cursor: "text" }}
